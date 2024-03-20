@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font for UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Wind Chill Calculator</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Wind Chill Finder</h1>
+        <input type="text" placeholder="Enter Temperature (°C)" id="temp"><br>
+        <input type="text" placeholder="Enter Wind Speed (km/h)" id="wind"><br>
+        <button id="submit" onclick="findWindChill()">Find out wind chill</button>
+    </div>
+
+    <div class="wind-chill">
+        <h1 id="answer"></h1>
+    </div>
+    
+    <script>
+        let temp = null;
+        let wind = null;
+
+
+        function findWindChill() {
+            // Get the value of the input element
+            const userInputForTemp = document.getElementById("temp");
+            const userInputForWind = document.getElementById("wind");
+
+            temp = parseFloat(userInputForTemp.value); // Parse to float
+            wind = parseFloat(userInputForWind.value); // Parse to float
+
+            // Find out wind chill
+            const windChillFormula = 13.12 + (0.6215 * temp) - (11.37 * Math.pow(wind, 0.16)) + (0.3965 * temp * Math.pow(wind, 0.16));
+
+            // Display windchill
+            const main = document.getElementsByClassName('main')[0]; // Assuming there is only one element with class 'main'
+            const windChillElement = document.getElementsByClassName('wind-chill')[0]; // Assuming there is only one element with class 'wind-chill'
+
+            main.style.display = 'none';
+            windChillElement.style.display = 'block';
+            windChillElement.textContent = "Feels like: " + Math.round(windChillFormula) + "°C"; // Displaying wind chill
+        }
+    </script>
+</body>
+</html>
